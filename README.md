@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/b2e623a6-8f5b-439e-8939-8a4158bfe996)
+
+
 # PDF Chat Tool 📄
 
 A powerful interactive tool built with Streamlit that allows users to chat with their PDF documents using OpenAI's GPT-3.5 model. This application enables users to upload multiple PDF files and ask questions about their content, receiving accurate responses based on the document context.
