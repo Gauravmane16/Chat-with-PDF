@@ -1,6 +1,6 @@
 import streamlit as st
 from PyPDF2 import PdfReader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.embeddings.spacy_embeddings import SpacyEmbeddings
