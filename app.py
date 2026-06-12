@@ -8,7 +8,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.tools.retriever import create_retriever_tool
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.agents import initialize_agent, AgentType
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -70,13 +70,20 @@ def get_conversational_chain(tools, ques):
         ("placeholder", "{agent_scratchpad}"),
     ])
     
-    tool = [tools]
-    agent = create_tool_calling_agent(llm, tool, prompt)
-    agent_executor = AgentExecutor(agent=agent, tools=tool, verbose=True)
-    
+    tools_list = [tools]
     try:
-        response = agent_executor.invoke({"input": ques})
-        return response['output']
+        agent_executor = initialize_agent(
+            tools_list,
+            llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            verbose=True,
+            agent_kwargs={"prompt": prompt}
+        )
+
+        response = agent_executor.run(ques)
+        return response
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
 
